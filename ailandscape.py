@@ -12,13 +12,13 @@ import wget
 # Input data function
 def imageInput(src):
     
-    if src == 'Upload your own Landscape satellite Images':
+    if src == 'Upload your MRI Heart Image':
         image_file = st.file_uploader("Upload An Image", type=['png', 'jpeg', 'jpg'])
         col1, col2 = st.columns(2)
         if image_file is not None:
             img = Image.open(image_file)
             with col1:
-                st.image(img, caption='Uploaded Landscape Image', use_column_width=True)
+                st.image(img, caption='Uploaded Heart MRI Image', use_column_width=True)
             ts = datetime.timestamp(datetime.now())
             imgpath = os.path.join('data/uploads', str(ts)+image_file.name)
             outputpath = os.path.join('data/outputs', os.path.basename(imgpath))
