@@ -26,7 +26,7 @@ def imageInput(src):
                 f.write(image_file.getbuffer())
 
             #call Model prediction--
-            model = torch.hub.load('ultralytics/yolov5', 'custom', path='landscape_model/weights/best.pt', force_reload=True)  
+            model = torch.hub.load('ultralytics/yolov5', 'custom', path='heart_yolo1/weights/best.pt', force_reload=True)  
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
@@ -40,7 +40,7 @@ def imageInput(src):
             with col2:
                 st.image(img_, caption='AI Landscape Identifier', use_column_width=True)
 
-    elif src == 'Choose from sample landscape satellite Images': 
+    elif src == 'Choose from sample Heart MRI Images': 
         # Image selector slider
         imgpath = glob.glob('data/images/test/*')
         imgsel = st.slider('Select random images from test set.', min_value=1, max_value=len(imgpath), step=1) 
@@ -53,7 +53,7 @@ def imageInput(src):
         with col2:            
             if image_file is not None and submit:
                 #call Model prediction--
-                model = torch.hub.load('ultralytics/yolov5','custom', path= 'landscape_model/weights/best.pt', force_reload=True) 
+                model = torch.hub.load('ultralytics/yolov5','custom', path= 'heart_yolo1/weights/best.pt', force_reload=True) 
                 pred = model(image_file)
                 pred.render()  # render bbox in image
                 for im in pred.ims:
@@ -66,10 +66,10 @@ def imageInput(src):
 def main():
     
     st.image("logo.jpg", width = 500)
-    st.title("AI Multi-Landscape Identifier App")
+    st.title("AI Heart Segmenter App")
     st.header("👈🏽 Select the Image Source options")
     st.sidebar.title('⚙️Options')
-    src = st.sidebar.radio("Select input source.", ['Choose from sample landscape satellite Images', 'Upload your own Landscape satellite Images'])
+    src = st.sidebar.radio("Select input source.", ['Choose from sample Heart MRI Images', 'Upload your MRI Heart Image'])
     imageInput(src)
    
 if __name__ == '__main__':
