@@ -8,7 +8,6 @@ from datetime import datetime
 import os
 import wget
 
-
 # Input data function
 def imageInput(src):
     
