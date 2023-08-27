@@ -6,7 +6,7 @@ import glob
 from datetime import datetime
 import os
 import wget
-
+from ultralytics import YOLO
 # Configurations
 CFG_MODEL_PATH = "heart_yolo1/weights/best.pt"
 CFG_ENABLE_URL_DOWNLOAD = True
