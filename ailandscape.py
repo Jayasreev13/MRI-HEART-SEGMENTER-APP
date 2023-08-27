@@ -27,7 +27,7 @@ def imageInput(src):
 
             #call Model prediction--
             model = torch.hub.load('ultralytics/yolov5', 'custom', path='heart_yolo1/weights/best.pt', force_reload=True)  
-            model.cuda() if device == 'cuda' else model.cpu()
+            #model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
             for im in pred.ims:
@@ -70,16 +70,9 @@ def main():
     st.header("👈🏽 Select the Image Source options")
     st.sidebar.title('⚙️Options')
     src = st.sidebar.radio("Select input source.", ['Choose from sample Heart MRI Images', 'Upload your MRI Heart Image'])
-    option = st.sidebar.radio("Select input type.", ['Image', 'Video'], disabled = True)
-    if torch.cuda.is_available():
-        deviceoption = st.sidebar.radio("Select compute Device.", ['cpu', 'cuda'], disabled = False, index=1)
-    else:
-        deviceoption = st.sidebar.radio("Select compute Device.", ['cpu', 'cuda'], disabled = True, index=0)
-    # -- End of Sidebar
     imageInput(src)
    
-if __name__ == '__main__':
-    
+if __name__ == '__main__':  
     main()
     
 @st.cache_resource
