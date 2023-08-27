@@ -1,12 +1,13 @@
 import streamlit as st
 import torch
-import detect
+from detect import detect
 from PIL import Image
 from io import *
 import glob
 from datetime import datetime
 import os
 import wget
+import time
 
 # Input data function
 def imageInput(src):
@@ -52,7 +53,7 @@ def imageInput(src):
         with col2:            
             if image_file is not None and submit:
                 #call Model prediction--
-                model = torch.hub.load('ultralytics/yolov5','custom', path= 'heart_yolo1/weights/best.pt', force_reload=True) 
+                model = torch.hub.load('ultralytics/yolov5','custom', path='heart_yolo1/weights/best.pt', force_reload=True) 
                 pred = model(image_file)
                 pred.render()  # render bbox in image
                 for im in pred.ims:
@@ -69,6 +70,12 @@ def main():
     st.header("👈🏽 Select the Image Source options")
     st.sidebar.title('⚙️Options')
     src = st.sidebar.radio("Select input source.", ['Choose from sample Heart MRI Images', 'Upload your MRI Heart Image'])
+    option = st.sidebar.radio("Select input type.", ['Image', 'Video'], disabled = True)
+    if torch.cuda.is_available():
+        deviceoption = st.sidebar.radio("Select compute Device.", ['cpu', 'cuda'], disabled = False, index=1)
+    else:
+        deviceoption = st.sidebar.radio("Select compute Device.", ['cpu', 'cuda'], disabled = True, index=0)
+    # -- End of Sidebar
     imageInput(src)
    
 if __name__ == '__main__':
