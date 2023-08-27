@@ -5,7 +5,7 @@ sklearn-pandas<=2.2.0
 wget>=3.2
 streamlit>=1.22.0
 detect>=2020.12.3
-
+PyTorch>=1.8.
 # Base ------------------------------------------------------------------------
 gitpython>=3.1.30
 matplotlib>=3.3
